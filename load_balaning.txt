@@ -1,0 +1,24 @@
+#official documations
+https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/
+
+
+# load balancing
+https://github.com/sinawic/4yt/tree/master/nginx
+https://www.youtube.com/watch?v=9mrh6kGBq2I
+
+
+
+
+http {
+    upstream backend {
+        server backend1.example.com weight=5;
+        server backend2.example.com;
+        server 192.0.0.1 backup;
+    }
+    
+    server {
+        location / {
+            proxy_pass http://backend;
+        }
+    }
+}
