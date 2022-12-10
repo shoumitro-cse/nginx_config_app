@@ -1,5 +1,6 @@
 #official documations
 https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/
+http://nginx.org/en/docs/http/ngx_http_upstream_module.html#sticky
 
 
 # load balancing
@@ -7,6 +8,8 @@ https://github.com/sinawic/4yt/tree/master/nginx
 https://www.youtube.com/watch?v=9mrh6kGBq2I
 
 
+# reload nginx
+sudo nginx -s reload
 
 
 http {

@@ -1,6 +1,12 @@
 # nginx_load_balancing
 
 
+# reload
+```
+# it is good practice than restart
+sudo nginx -s reload
+```
+
 
 ## setup
 ```
