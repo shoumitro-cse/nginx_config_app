@@ -1,0 +1,80 @@
+here, wlp6s0 is a lan and docker0 is a virtual switch
+# with host network no need to specify any port because here default -p 80:80
+
+
+############# nginx congig with docker host network ####################
+ip addr
+ip addr | grep wlp6s0
+docker network inspect bridge
+docker network inspect host
+docker run -itd --name my_nginx --network host nginx:latest
+docker exec -it  my_nginx bash
+
+# browser
+http://192.168.0.105/
+http://172.17.0.1/ # docker0 virtual switch or bridge network (Gateway ip)
+http://127.0.0.1/ 
+
+docker exec -it  my_nginx bash
+apt update
+apt install iputils-ping
+apt install iproute2
+
+ip a
+ping 192.168.0.105
+
+hostname -I # all addresses for the host
+hostname -i # or
+
+# you can see your own network
+cat /etc/hosts
+####################################################################
+
+
+#################### dynamic ip macvlan network ########################
+# make custom macvlan network
+docker network create -d macvlan --subnet 192.168.0.0/24 --gateway 192.168.0.1 -o parent=wlp6s0 my_custom_net
+docker network inspect my_custom_net
+
+docker run -itd --name my_nginx2 --network my_custom_net nginx:latest
+docker exec -it  my_nginx2 bash
+root@c3cf952d6aab:/# hostname -I
+192.168.0.2 
+
+
+docker run -itd --name my_nginx3 --network my_custom_net nginx:latest
+docker exec -it  my_nginx3 bash
+root@c3cf952d6aab:/# hostname -I
+192.168.0.3 
+
+docker stop my_nginx2 my_nginx3
+docker rm my_nginx2 my_nginx3
+docker network rm my_custom_net
+####################################################################
+
+
+################ static ip macvlan network ##################
+# make custom macvlan network (static ip address), Here ip range one
+docker network create -d macvlan --subnet 192.168.0.0/24 --gateway 192.168.0.1 --ip-range 192.168.0.253/32 -o parent=wlp6s0 my_custom_net2
+docker network inspect my_custom_net2
+
+docker run -itd --name my_nginx4 --network my_custom_net2 nginx:latest
+docker exec -it  my_nginx4 bash
+root@c3cf952d6aab:/# hostname -I
+192.168.0.253
+
+# fetch a error. here you can create only one container because ip range = 1
+[shoumitro@shoumitro-pc ~]$ docker run -itd --name my_nginx5 --network my_custom_net2 nginx:latest
+708596d5bad4aba4be11552c220b2fce03daf7c364b254b09310fbf75ec2bbae
+docker: Error response from daemon: no available IPv4 addresses on this network's address pools: my_custom_net2 (b861049168790e909a1c499985382bef87cbb31ca180f73abb93f255c3e35e1e).
+
+docker run -itd --ip 192.168.0.3 --name my_nginx5 --network my_custom_net2 nginx:latest
+docker exec -it  my_nginx5 bash
+root@c3cf952d6aab:/# hostname -I
+192.168.0.3 
+
+
+docker stop my_nginx4 my_nginx5
+docker rm my_nginx4 my_nginx5
+docker network rm my_custom_net2
+####################################################################
