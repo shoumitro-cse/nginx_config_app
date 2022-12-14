@@ -1,0 +1,107 @@
+# hub link
+# https://hub.docker.com/r/kensingtontech/nginx-jwt
+
+# module link
+# https://github.com/TeslaGov/ngx-http-auth-jwt-module
+
+# jwt-auth documentation
+https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-jwt-authentication/
+http://nginx.org/en/docs/http/ngx_http_auth_jwt_module.html
+
+
+# caching
+https://docs.nginx.com/nginx/admin-guide/content-cache/content-caching/
+
+docker pull kensingtontech/nginx-jwt
+apt install iputils-ping iproute2 nano curl
+
+
+curl -X 'GET' \
+  'http://192.168.0.105/api2/accounts/user/' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcxMDUxNzg2LCJpYXQiOjE2NzEwMzM3ODYsImp0aSI6IjllODA4NWYxZjI3OTRiZDQ5NmZmMDZhMWY5YmNhOTI4IiwidXNlcl9pZCI6N30.wjJsP57r4iYDvBCg2fR9NpSl9EHOgIaZuITqF0Jh31g'
+  
+
+## This module requires several new nginx.conf directives, which can be specified at the http, server, or location levels.
+auth_jwt_key	        The key to use to decode/verify the JWT -- see below.
+auth_jwt_redirect	    Set to "on" to redirect to auth_jwt_loginurl if authentication fails.
+auth_jwt_loginurl	    The URL to redirect to if auth_jwt_redirect is enabled and authentication fails.
+auth_jwt_enabled	    Set to "on" to enable JWT checking.
+auth_jwt_algorithm	    The algorithm to use. One of: HS256, HS384, HS512, RS256, RS384, RS512
+auth_jwt_extract_sub	Set to "on" to extract the sub claim (e.g. user id) from the JWT and into the x-userid header on the response.
+auth_jwt_validate_email	Set to "on" to extract the emailAddress claim from the JWT and into the x-email header on the response.
+auth_jwt_use_keyfile	Set to "on" to read the key from a file rather than from the auth_jwt_key directive.
+auth_jwt_keyfile_path	Set to the path from which the key should be read when auth_jwt_use_keyfile is enabled.
+
+
+
+########################### for rsa ################################
+
+    server {
+      listen 80;
+      # use https://github.com/abbaspour/auth0-bash/blob/master/discovery/jwks-to-pem.sh to convert jwks.json to x509 PEM
+      auth_jwt_key                 "-----BEGIN PUBLIC KEY-----
+									MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6b54f+d2tINbpTwi1Hxw
+									1DlNagPwgfKsqBnCdqlXt40s5hyu/8SJieAiw2wlxLyX+nrxIV510ED1vyTr/ctC
+									nak8ZvtBfEYPRCfqT9kRYHaVA8MlRGLNURR/nk5u75LebEdtvcS4nu817xjaG2dO
+									rMZ5urlKQhgRzct1+IEmLMRhdBy6PfQCxXgbxh42Q2YxIXcIXK8UkQLZQ1MLG5Ji
+									EowVwp64dJuC7NF8IkywtbJoOfGVxRuRHqXxKOXEs9kthODNaMqVIgEqsSfFXlFN
+									GI6wKjEAcbXPCSEA+h50kz08aNIVvgNhPKK0+C/VKnYiYSV8HAo05XOOdbCo71dj
+									NQIDAQAB
+									-----END PUBLIC KEY-----";
+      auth_jwt_loginurl            "http://192.168.0.105:3000/api/token/verify/";
+      auth_jwt_enabled             off;
+      auth_jwt_redirect            on;
+
+      location / {
+        proxy_pass http://192.168.0.105:3000;
+      }
+        
+      location /api {
+        auth_jwt_enabled on;
+        auth_jwt_validation_type AUTHORIZATION;  
+        #auth_jwt_validation_type COOKIE=x_auth_token;
+        auth_jwt_algorithm RS256; # default HS256
+
+        proxy_pass http://192.168.0.105:3000;
+        proxy_set_header Host $host;
+        #proxy_set_header Authorization "Bearer $cookie_x_auth_token";
+      }
+    }
+
+
+
+#************ default nginx.conf ***************
+user  nginx;
+worker_processes  auto;
+
+error_log  /var/log/nginx/error.log notice;
+pid        /var/run/nginx.pid;
+load_module /usr/lib64/nginx/modules/ngx_http_auth_jwt_module.so;
+
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    include /etc/nginx/conf.d/*.conf;
+}
+
+

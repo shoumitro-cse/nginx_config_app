@@ -1,3 +1,14 @@
+# https://www.docker.com/blog/understanding-docker-networking-drivers-use-cases/
+https://www.youtube.com/watch?v=5grbXvV_DSk&t=926s
+
+docker all network driver name;
+1. host
+2. bridge
+3. macvlan
+4. ipvlan
+5. overlay
+
+
 here, wlp6s0 is a lan and docker0 is a virtual switch
 # with host network no need to specify any port because here default -p 80:80
 
@@ -68,13 +79,25 @@ root@c3cf952d6aab:/# hostname -I
 708596d5bad4aba4be11552c220b2fce03daf7c364b254b09310fbf75ec2bbae
 docker: Error response from daemon: no available IPv4 addresses on this network's address pools: my_custom_net2 (b861049168790e909a1c499985382bef87cbb31ca180f73abb93f255c3e35e1e).
 
-docker run -itd --ip 192.168.0.3 --name my_nginx5 --network my_custom_net2 nginx:latest
+docker run -itd --ip 192.168.0.202 --name my_nginx5 --network my_custom_net2 nginx:latest
 docker exec -it  my_nginx5 bash
 root@c3cf952d6aab:/# hostname -I
-192.168.0.3 
+192.168.0.202 
 
 
 docker stop my_nginx4 my_nginx5
 docker rm my_nginx4 my_nginx5
 docker network rm my_custom_net2
 ####################################################################
+
+
+docker network create -d overlay --subnet 192.168.0.0/24 --gateway 192.168.0.19  --opt encrypted pets-overlay my_overlay
+
+docker swarm init
+#docker swarm join --token SWMTKN-1-1xv6v2vdodoi5ijo6quwm204in0b9rudaypes8u18m335j4q9p-7tl38ebse8rw8xbxpy629l9sz 192.168.0.105:2377
+
+docker network create -d overlay --opt encrypted pets-overlay 
+docker service create --network pets-overlay --name db redis 
+docker service create --network pets-overlay -p 8000:5000 -e DB=db --name web chrch/web
+
+
