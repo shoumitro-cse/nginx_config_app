@@ -1,0 +1,76 @@
+# https://www.javatpoint.com/nginx-content-caching
+
+
+NGINX Content Caching
+Caching refers to locally storing the information to speed the communication between a client such as a web server. The cache can be located on the client-side, the server-side, or both. Caching is useful for serving repetitive requests of static or infrequently changing data.
+
+A content cache resides in between a client and an origin server and saves copies of all the content it sees. If a client requests content that the cache has stored, it returns the content directly without contacting the origin server.
+
+In Nginx Plus, when caching is enabled, Nginx Plus saves responses in a disk cache and uses them to respond to clients without having to proxy requests for the same content every time.
+
+Enabling the Caching of Responses
+To enable the caching, add the proxy_cache_path directive in the top-level http { } context. The important and mandatory first parameter is the local file system path for cached content, and the mandatory keys zone parameter specifies the name and size of the shared memory zone which is used to store metadata about cached items:
+
+http {  
+    ...  
+    proxy_cache_path /data/nginx/cache keys_zone=one:10m;  
+}  
+After that add the proxy_cache directive in the context (protocol type, virtual server, or location) for which we want to cache server responses, specifying the zone name defined by the key_zone parameter to the proxy_cache_path directive.
+
+http {  
+    ...  
+    proxy_cache_path /data/nginx/cache keys_zone=one:10m;  
+    server {  
+        proxy_cache mycache;  
+        location / {  
+            proxy_pass http://localhost:8000;  
+        }  
+    }  
+}  
+Nginx Processes Involved in Caching
+There are Nginx Processes involved in caching:
+
+The cache manager is activated periodically to check the cache's state. If the size of the cache exceeds the limit set by the max_size parameter to the proxy_cache_path directive, the cache manager removes the data that was accessed least recently. Cached data can exceed the limit (temporarily) during the time between cache manager activations.
+
+The cache loader runs only once after NGINX will start. It loads metadata of previously cached data into the shared memory zone. Loading the entire cache at once could consume sufficient resources to slow NGINX performance during the first few minutes after startup. To avoid this problem, configure iterative loading of the cache by including the following parameters to the proxy_cache_path directive:
+
+loader_threshold - Duration of iteration, in milliseconds (by default value is 200).
+loader_files - Maximum no. of items loaded during one iteration (by default value is 100).
+loader_sleeps - Delay between iterations, in milliseconds (by default value is 50).
+Let's see an example,
+
+In this example, iterations last 300 milliseconds or until 200 items have been loaded:
+
+proxy_cache_path /data/nginx/cache keys_zone=one:10m loader_threshold=300 loader_files=200;  
+Specifying which Requests to Cache
+NGINX Plus caches all responses by default to requests made with the HTTP HEAD and HTTP GET methods, the first time such responses are received from a proxied server. As the key for a request, NGINX Plus uses the request string. If a request has the same key or identifier as a cached response, NGINX Plus sends the cached response to the client. We can add various directives in the http {}, server {}, or location {} context to control which responses are cached.
+
+To change the request characteristics used in calculating the identifier or key, include the proxy_cache_key directive:
+
+
+proxy_cache_key "$host$request_uri$cookie_user";  
+To define the minimum number of times that a request with the same identifier must be made before the response is cached, include the proxy_cache_min_uses directive:
+
+proxy_cache_min_uses 5;  
+To cache responses to requests with methods other than HEAD and GET, list them along with HEAD and GET as parameters to the proxy_cache_methods directive:
+
+proxy_cache_methods GET HEAD POST;  
+Limiting or Disabling Caching
+By default, responses remain in the cache indefinitely. They are removed only when the cache exceeds the maximum configured size, and then in order by length of time since they were last requested. You can set how long cached responses are considered valid, or even whether they are used at all, by including directives in the http {}, server {}, or location {} context:
+
+To limit how long cached responses with specific status codes are considered valid, use the proxy_cache_valid directive:
+
+proxy_cache_valid 200 302 10m;  
+proxy_cache_valid 404      1m;  
+In this example, responses with the code 200 or 302 are considered valid for 10 minutes, and responses with code 404 are valid for 1 minute. To define the validity time for responses with all status codes, specify any as the first parameter:
+
+
+proxy_cache_valid any 5m;  
+To specify conditions under which NGINX Plus does not send cached responses to clients, include the proxy_cache_bypass directive. Each parameter defines a condition and consists of several variables. If at least one parameter is not empty and does not equal "0" (zero), NGINX Plus does not look up the response in the cache but instead forwards the request to the backend server immediately.
+
+proxy_cache_bypass $cookie_nocache $arg_nocache$arg_comment;  
+To define conditions under which NGINX Plus doesn't cache a response at all, add the proxy_no_cache directive:
+
+proxy_no_cache $http_pragma $http_authorization;  
+
+
