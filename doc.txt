@@ -1,0 +1,53 @@
+What is Keepalive_timeout in NGINX?
+Context: http , server , and location. This directive defines the number of seconds the server will wait before closing a keep-alive connection. The second (optional) parameter is transmitted as the value of the Keep-Alive: timeout= <HTTP response header>
+
+example:
+keepalive_timeout   120;
+
+
+What is types_ hash_ max_ size Nginx?
+Context: http , server , and location. Defines the maximum size of an entry in the MIME types hash tables. Syntax: Numeric value.
+
+# example
+types_hash_max_size 2048;
+
+
+What is Body_bytes_sent?
+$body_bytes_sent. number of bytes sent to a client, not counting the response header.
+
+
+
+What is nginx Sendfile?
+Enabling sendfile
+
+By default, NGINX handles file transmission itself and copies the file into the buffer before sending it. Enabling the sendfile directive eliminates the step of copying the data into the buffer and enables direct copying data from one file descriptor to another.
+
+sendfile            on;
+
+
+
+What is tcp_nopush?
+tcp_nopush. tcp_nopush is opposite to tcp_nodelay . Instead of pushing packages as fast as possible, it aims to optimise the amount of data sent simultaneously. It will force the package to wait until it gets its maximum size (MSS) before sending it to the client. This directive only works, when sendfile is on.
+
+
+
+# for video faster delivery
+https://serverfault.com/questions/705498/nginx-serving-large-mp4-files-extremely-inefficiently
+
+The better start can be the set of following rules:
+
+1. disable logging and accept_mutex
+2. enable sendfile
+3. set sendfile_max_chunk
+
+Configuration:
+
+events {
+    accept_mutex off;
+}
+
+access_log off;
+sendfile on;
+sendfile_max_chunk 512k;
+
+

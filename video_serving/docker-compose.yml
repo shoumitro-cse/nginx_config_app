@@ -3,6 +3,7 @@ version: '3.3'
 
 services:
   nginx:
+    container_name: nginx_ex
     image: nginx:latest
     extra_hosts:
       - "host.docker.internal:host-gateway"

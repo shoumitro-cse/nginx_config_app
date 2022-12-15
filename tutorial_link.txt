@@ -1,2 +1,32 @@
 https://www.javatpoint.com/nginx-tutorial
+http://nginx.org/en/docs/ #(best)
+http://nginx.org/en/docs/beginners_guide.html
+
+
+#  live streaming server using NGINX (Video)
+https://docs.peer5.com/guides/setting-up-hls-live-streaming-server-using-nginx/
+http://nginx.org/en/docs/http/ngx_http_mp4_module.html
+https://www.digitalocean.com/community/tutorials/how-to-set-up-a-video-streaming-server-using-nginx-rtmp-on-ubuntu-20-04 #( live video)
+https://www.youtube.com/watch?v=Js1OlvRNsdI
+
+https://serverfault.com/questions/705498/nginx-serving-large-mp4-files-extremely-inefficiently
+
+
+
+# live streaming
+https://docs.peer5.com/guides/setting-up-hls-live-streaming-server-using-nginx/
+https://www.digitalocean.com/community/tutorials/how-to-set-up-a-video-streaming-server-using-nginx-rtmp-on-ubuntu-20-04
+https://github.com/outcast/live-streaming-demo
+https://www.youtube.com/watch?v=Js1OlvRNsdI
+
+
+
+What is live streaming and how does it work?
+Live streaming is when the streamed video is sent over the Internet in real time, without first being recorded and stored. Today, TV broadcasts, video game streams, and social media video can all be live-streamed.
+
+# arch linux
+https://aur.archlinux.org/packages/nginx-mod-rtmp
+yay -S nginx-mod-rtmp
+load_module modules/ngx_rtmp_module.so;  
+nginx -t && nginx -s reload  
 
