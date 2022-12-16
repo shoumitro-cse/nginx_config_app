@@ -56,7 +56,10 @@ example:
 # for OBS Studio 
 url: rtmp://192.168.0.105:1935/live
 
-# for vlc
+# Terminal command for live video 
+ffmpeg -re -i /home/shoumitro/Documents/FR/video_audio/image_video_processing/sample_vid.mp4 -vcodec libx264 -vprofile baseline -g 30 -acodec aac -strict -2 -f flv rtmp://192.168.0.105:1935/live
+
+# vlc for to access live video 
 network stream url: rtmp://192.168.0.105:1935/live
 
 ```
