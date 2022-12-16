@@ -88,7 +88,10 @@ example:
 url: rtmp://192.168.0.105:1935/live
 stream key: abc123
 
-# for vlc
+# Terminal command for live video 
+ffmpeg -re -i "/home/shoumitro/Documents/FR/video_audio/my_video.mp4" -vcodec libx264 -vprofile baseline -g 30 -acodec aac -strict -2 -f flv rtmp://192.168.0.105:1935/live/abc123
+
+# vlc for to access live video 
 network stream url: rtmp://192.168.0.105:1935/live/abc123
 
 
