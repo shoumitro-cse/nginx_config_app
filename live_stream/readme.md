@@ -33,13 +33,14 @@ docker-compose -f docker-compose2.yml up --build
 # docker images for live sreaming
 https://hub.docker.com/r/alqutami/rtmp-hls
 
+# simple
 docker run -d -p 1935:1935 -p 8080:8080 alqutami/rtmp-hls
 
-For Alpine-based Image use:
+# For Alpine-based Image use:
 docker run -d -p 1935:1935 -p 8080:8080 alqutami/rtmp-hls:latest-alpine
 
-To run with custom conf file:
-docker run -d -p 1935:1935 -p 8080:8080 -v custom.conf:/etc/nginx/nginx.conf alqutami/rtmp-hls
+# To run with custom nginx conf file:
+docker run -d -p 1935:1935 -p 8080:8080 -v custom_nginx.conf:/etc/nginx/nginx.conf alqutami/rtmp-hls
 
 rtmp://<server ip>:1935/live/<stream_key>. where <stream_key> is any stream key you specify.
 
@@ -53,12 +54,15 @@ stream key: abc123
 network stream url: rtmp://192.168.0.105:1935/live/abc123
 
 
-Another example:
-http://192.168.0.105:8080/stats
-http://192.168.0.105:8080/players/rtmp.html
-http://192.168.0.105:8080/players/hls.html
-rtmp://192.168.0.105:1935/live/abc123
+# Another example:
 
+# live stream status
+http://192.168.0.105:8080/stats  
+http://192.168.0.105:8080/stat.xsl
+
+# can't access these files
+http://192.168.0.105:8080/hls  
+http://192.168.0.105:8080/dash  
 
 To play RTMP content (requires Flash): 
 http://192.168.0.105:8080/players/rtmp.html
