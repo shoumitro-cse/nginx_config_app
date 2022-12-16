@@ -1,6 +1,9 @@
 
-## OBS Studio install
+## OBS Studio install & live stram
 ```
+https://www.youtube.com/watch?v=EzmA8uksOG4
+https://hub.docker.com/r/tiangolo/nginx-rtmp/
+
 https://obsproject.com/
 
 sudo pacman -S flatpak
