@@ -1,3 +1,38 @@
+### What is RTMP, HLS, DASH?
+```
+
+1. What is Stream RTMP (Real Time Messaging Protocol):
+Ans: The Real-Time Messaging Protocol (RTMP) is a data transmission technology that 
+supports live online video streaming. RTMP was initially designed to transport audio 
+and video data between a dedicated streaming server and the Adobe Flash Player.
+
+RTMP is a TCP-based protocol which maintains persistent connections and allows low-latency 
+communication. To deliver streams smoothly and transmit as much information as possible, 
+it splits streams into fragments, and their size is negotiated dynamically between the client and server.
+
+
+2. What is Apple HTTP Live Streaming (HLS):
+Ans: HTTP Live Streaming (HLS) sends audio and video over HTTP from an ordinary web server for 
+playback on iOS-based devices—including iPhone, iPad, iPod touch, and Apple TV—and on desktop 
+computers (macOS).
+
+3. What is Dynamic Adaptive Streaming over HTTP (DASH) video formats:
+Ans: Dynamic Adaptive Streaming over HTTP (DASH), also known as MPEG-DASH, is an adaptive 
+bitrate streaming technique that enables high quality streaming of media content over the 
+Internet delivered from conventional HTTP web servers.
+
+DASH uses adaptive bitrate, allowing the video player to automatically adjust to network conditions 
+and switch to lower or higher quality resolution. For example, when a user's bandwidth is low, 
+streamed video will play at a lower quality level to use less bandwidth.
+
+
+$ apt-get install nginx-plus-module-rtmp  
+
+# nginx-plus-module-rtmp package used for
+Stream video in multiple formats, including Real-Time Messaging Protocol (RTMP), HLS, and DASH, with the RTMP dynamic module, supported by NGINX, Inc.
+
+```
+
 
 ### OBS Studio & nginx-rtmp live stram install
 ```
