@@ -5,10 +5,6 @@ services:
   live_sream:
     container_name: live_stream_container
     image: tiangolo/nginx-rtmp
-    # image: alqutami/rtmp-hls
-    #image: alqutami/rtmp-hls:latest-alpine
-    #extra_hosts:
-    #  - "host.docker.internal:host-gateway"
     volumes:
       - "./nginx.conf:/etc/nginx/nginx.conf"
     ports:
