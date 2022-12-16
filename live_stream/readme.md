@@ -104,6 +104,7 @@ network stream url: rtmp://192.168.0.105:1935/live/abc123
 docker exec -it live_stream_container bash
 apt update
 apt install nano
+
 nano /usr/local/nginx/html/players/hls.html
 <video id="player" class="video-js vjs-default-skin" width="720" controls preload="$
         <source src="/hls/abc123.m3u8" type="application/x-mpegURL" />
@@ -114,12 +115,22 @@ nano /usr/local/nginx/html/players/hls.html
         <source src="/hls/abc123_hd720.m3u8" type="application/x-mpegURL" /> -->
 </video>
 
+nano /usr/local/nginx/html/players/dash.html
+	<video id="player" class="video-js vjs-default-skin" width="720" controls preload="auto">
+		<source src="/dash/test_src.mpd" type="application/dash+xml" />
+<!-- 		<source src="/dash/test_low.mpd" type="application/dash+xml" />
+		<source src="/dash/test_mid.mpd" type="application/dash+xml" />
+		<source src="/dash/test_high.mpd" type="application/dash+xml" />
+		<source src="/dash/test_hd720.mpd" type="application/dash+xml" /> -->
+	</video>
+
 # to see source video
 ls /mnt/hls
 ls /mnt/dash
 
 # enter here to see live video
 http://192.168.0.105:8080/players/hls.html
+http://192.168.0.105:8080/players/dash.html
 
 
 # Another example:
@@ -127,6 +138,8 @@ http://192.168.0.105:8080/players/hls.html
 # live stream status
 http://192.168.0.105:8080/stats  
 http://192.168.0.105:8080/stat.xsl
+# or inside docker container
+cat /usr/local/nginx/html/stat.xsl 
 
 # can't access these files
 http://192.168.0.105:8080/hls  
