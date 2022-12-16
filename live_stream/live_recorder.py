@@ -5,6 +5,8 @@
 # best doc
 # https://ffmpeg.org/pipermail/ffmpeg-user/2015-July/027642.html
 # ffmpeg -i "rtmp://192.168.0.105:1935/live/test" -c copy -f mp4 test.mp4
+# https://github.com/kkroening/ffmpeg-python/issues/162
+
 
 rtmp_url = "rtmp://192.168.0.105:1935/live/test"
 import subprocess as sp
