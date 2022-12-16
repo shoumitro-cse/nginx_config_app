@@ -89,10 +89,37 @@ url: rtmp://192.168.0.105:1935/live
 stream key: abc123
 
 # Terminal command for live video 
+
+# Alternate of this url http://192.168.0.105:8080/players/rtmp.html
+ffmpeg -re -i "/home/shoumitro/Documents/FR/video_audio/my_video.mp4" -vcodec libx264 -vprofile baseline -g 30 -acodec aac -strict -2 -f flv rtmp://192.168.0.105:1935/live/test
+
+# for custom stream key
 ffmpeg -re -i "/home/shoumitro/Documents/FR/video_audio/my_video.mp4" -vcodec libx264 -vprofile baseline -g 30 -acodec aac -strict -2 -f flv rtmp://192.168.0.105:1935/live/abc123
 
 # vlc for to access live video 
 network stream url: rtmp://192.168.0.105:1935/live/abc123
+
+
+# add this line of code
+docker exec -it live_stream_container bash
+apt update
+apt install nano
+nano /usr/local/nginx/html/players/hls.html
+<video id="player" class="video-js vjs-default-skin" width="720" controls preload="$
+        <source src="/hls/abc123.m3u8" type="application/x-mpegURL" />
+<!--         <source src="/hls/abc123_src.m3u8" type="application/x-mpegURL" />
+        <source src="/hls/abc123_low.m3u8" type="application/x-mpegURL" />
+        <source src="/hls/abc123_mid.m3u8" type="application/x-mpegURL" />
+        <source src="/hls/abc123_high.m3u8" type="application/x-mpegURL" />
+        <source src="/hls/abc123_hd720.m3u8" type="application/x-mpegURL" /> -->
+</video>
+
+# to see source video
+ls /mnt/hls
+ls /mnt/dash
+
+# enter here to see live video
+http://192.168.0.105:8080/players/hls.html
 
 
 # Another example:

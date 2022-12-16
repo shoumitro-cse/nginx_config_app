@@ -6,8 +6,13 @@ services:
     container_name: live_stream_container
     image: alqutami/rtmp-hls
     #image: alqutami/rtmp-hls:latest-alpine
-    #volumes:
-    #  - "./nginx2.conf:/etc/nginx/nginx.conf"
+    volumes:
+      #- "./nginx2.conf:/etc/nginx/nginx.conf"
+      - "./players/hls.html:/usr/local/nginx/html/players/hls.html" 
+      - "./players/dash.html:/usr/local/nginx/html/players/dash.html" 
+      - "./players/hls_hlsjs.html:/usr/local/nginx/html/players/hls_hlsjs.html" 
+      - "./players/rtmp_hls.html:/usr/local/nginx/html/players/rtmp_hls.html" 
+      - "./players/rtmp.html:/usr/local/nginx/html/players/rtmp.html" 
     ports:
       - 192.168.0.105:1935:1935
       - 192.168.0.105:8080:8080
