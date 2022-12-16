@@ -12,10 +12,7 @@ flatpak run com.obsproject.Studio
 
 ## Docker image for video streaming server that supports RTMP, HLS, and DASH streams.
 ```
-http://192.168.0.105:8080/stats
-http://192.168.0.105:8080/players/rtmp.html
-http://192.168.0.105:8080/players/hls.html
-rtmp://192.168.0.105:1935/live/abc123
+docker-compose -f docker-compose2.yml up --build
 
 # docker images for live sreaming
 https://hub.docker.com/r/alqutami/rtmp-hls
@@ -30,7 +27,14 @@ docker run -d -p 1935:1935 -p 8080:8080 -v custom.conf:/etc/nginx/nginx.conf alq
 
 rtmp://<server ip>:1935/live/<stream_key>
 where <stream_key> is any stream key you specify.
+example:
+rtmp://192.168.0.105:1935/live/abc123
 
+Another example:
+http://192.168.0.105:8080/stats
+http://192.168.0.105:8080/players/rtmp.html
+http://192.168.0.105:8080/players/hls.html
+rtmp://192.168.0.105:1935/live/abc123
 
 
 To play RTMP content (requires Flash): http://192.168.0.105:8080/players/rtmp.html
