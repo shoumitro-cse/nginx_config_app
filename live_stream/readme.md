@@ -1,5 +1,5 @@
 
-## OBS Studio & nginx-rtmp live stram install
+### OBS Studio & nginx-rtmp live stram install
 ```
 # install OBS Studio
 
@@ -26,7 +26,7 @@ network stream url: rtmp://192.168.0.105:1935/live
 
 ```
 
-## Docker image for video streaming server that supports RTMP, HLS, and DASH streams.
+### Docker image for video streaming server that supports RTMP, HLS, and DASH streams.
 ```
 docker-compose -f docker-compose2.yml up --build
 
