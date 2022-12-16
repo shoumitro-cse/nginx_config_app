@@ -1,6 +1,5 @@
 ### What is RTMP, HLS, DASH?
 ```
-
 1. What is Stream RTMP (Real Time Messaging Protocol):
 Ans: The Real-Time Messaging Protocol (RTMP) is a data transmission technology that 
 supports live online video streaming. RTMP was initially designed to transport audio 
@@ -29,7 +28,8 @@ streamed video will play at a lower quality level to use less bandwidth.
 $ apt-get install nginx-plus-module-rtmp  
 
 # nginx-plus-module-rtmp package used for
-Stream video in multiple formats, including Real-Time Messaging Protocol (RTMP), HLS, and DASH, with the RTMP dynamic module, supported by NGINX, Inc.
+Stream video in multiple formats, including Real-Time Messaging Protocol (RTMP), HLS, and DASH, 
+with the RTMP dynamic module, supported by NGINX, Inc.
 
 ```
 
