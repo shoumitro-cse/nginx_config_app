@@ -6,7 +6,7 @@ services:
     container_name: live_stream_container
     image: tiangolo/nginx-rtmp
     volumes:
-      - "./nginx.conf:/etc/nginx/nginx.conf"
+      - "./nginx_rtmp.conf:/etc/nginx/nginx.conf"
     ports:
       - 192.168.0.105:1935:1935
       - 192.168.0.105:8080:8080

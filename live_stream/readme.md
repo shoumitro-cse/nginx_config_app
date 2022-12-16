@@ -50,7 +50,7 @@ flatpak run com.obsproject.Studio
 https://www.youtube.com/watch?v=EzmA8uksOG4
 https://hub.docker.com/r/tiangolo/nginx-rtmp/
 
-docker-compose -f docker-compose.yml up --build
+docker-compose -f docker-compose-rtmp.yml up --build
 example:
 
 # for OBS Studio 
@@ -66,7 +66,7 @@ network stream url: rtmp://192.168.0.105:1935/live
 
 ### Docker image for video streaming server that supports RTMP, HLS, and DASH streams.
 ```
-docker-compose -f docker-compose2.yml up --build
+docker-compose -f docker-compose-all.yml up --build
 
 # docker images for live sreaming
 https://hub.docker.com/r/alqutami/rtmp-hls

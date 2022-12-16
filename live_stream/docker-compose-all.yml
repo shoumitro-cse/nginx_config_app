@@ -7,7 +7,7 @@ services:
     image: alqutami/rtmp-hls
     #image: alqutami/rtmp-hls:latest-alpine
     volumes:
-      #- "./nginx2.conf:/etc/nginx/nginx.conf"
+      #- "./nginx_all.conf:/etc/nginx/nginx.conf"
       - "./players/hls.html:/usr/local/nginx/html/players/hls.html" 
       - "./players/dash.html:/usr/local/nginx/html/players/dash.html" 
       - "./players/hls_hlsjs.html:/usr/local/nginx/html/players/hls_hlsjs.html" 
