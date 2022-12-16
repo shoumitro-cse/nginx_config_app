@@ -24,6 +24,7 @@ https://www.youtube.com/watch?v=Js1OlvRNsdI
 What is live streaming and how does it work?
 Live streaming is when the streamed video is sent over the Internet in real time, without first being recorded and stored. Today, TV broadcasts, video game streams, and social media video can all be live-streamed.
 
+
 # arch linux
 https://aur.archlinux.org/packages/nginx-mod-rtmp
 yay -S nginx-mod-rtmp
