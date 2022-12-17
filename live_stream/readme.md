@@ -63,10 +63,9 @@ ffmpeg -re -i /home/shoumitro/Documents/FR/video_audio/image_video_processing/sa
 network stream url: rtmp://192.168.0.105:1935/live
 
 # live video recorder
-ffmpeg -i "rtmp://192.168.0.105:1935/live/test" -c copy -f mp4 my_output_file.mp4
+ffmpeg -i "rtmp://192.168.0.105:1935/live" -c copy -f mp4 my_output_file.mp4
 
 sudo ufw allow 1935/tcp
-sudo ufw allow 8088/tcp
 
 ```
 
@@ -107,6 +106,7 @@ network stream url: rtmp://192.168.0.105:1935/live/abc123
 
 # live video recorder
 ffmpeg -i "rtmp://192.168.0.105:1935/live/test" -c copy -f mp4 my_output_file.mp4
+ffmpeg -i "http://192.168.0.105:8080/hls/test.m3u8" -c copy -f mp4 my_output_file.mp4
 
 sudo ufw allow 1935/tcp
 sudo ufw allow 8088/tcp

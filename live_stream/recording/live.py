@@ -10,6 +10,7 @@ import ffmpeg_streaming
 
 # 3. Stream(DASH or HLS) To File:
 video = ffmpeg_streaming.input('http://192.168.0.105:8080/hls/test.m3u8')
+# video = ffmpeg_streaming.input('rtmp://192.168.0.105:1935/live/test')
 stream = video.stream2file(Formats.h264())
 
 print("Recording...")
