@@ -62,6 +62,9 @@ ffmpeg -re -i /home/shoumitro/Documents/FR/video_audio/image_video_processing/sa
 # vlc for to access live video 
 network stream url: rtmp://192.168.0.105:1935/live
 
+sudo ufw allow 1935/tcp
+sudo ufw allow 8088/tcp
+
 ```
 
 ### Docker image for video streaming server that supports RTMP, HLS, and DASH streams.
@@ -99,6 +102,8 @@ ffmpeg -re -i "/home/shoumitro/Documents/FR/video_audio/my_video.mp4" -vcodec li
 # vlc for to access live video 
 network stream url: rtmp://192.168.0.105:1935/live/abc123
 
+sudo ufw allow 1935/tcp
+sudo ufw allow 8088/tcp
 
 # add this line of code
 docker exec -it live_stream_container bash
