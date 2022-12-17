@@ -172,3 +172,12 @@ To play RTMP and HLS contents on the same page:
 http://192.168.0.105:8080/players/rtmp_hls.html
 
 ```
+
+
+# Library for python and js
+```
+# good doc for ffmpeg_streaming, js, hls, dash
+# https://video.aminyazdanpanah.com/python/start?r=hls
+# https://github.com/Dash-Industry-Forum/dash.js
+# https://github.com/video-dev/hls.js
+```

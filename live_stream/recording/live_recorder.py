@@ -6,21 +6,38 @@
 # https://ffmpeg.org/pipermail/ffmpeg-user/2015-July/027642.html
 # ffmpeg -i "rtmp://192.168.0.105:1935/live/test" -c copy -f mp4 my_output_file.mp4
 # https://github.com/kkroening/ffmpeg-python/issues/162
+# https://video.aminyazdanpanah.com/python/start?r=hls
 
 
 rtmp_url = "rtmp://192.168.0.105:1935/live/test"
-import subprocess as sp
+import os
+import signal
+import subprocess
+
 
 command = ['ffmpeg', '-y',
         '-i', rtmp_url,
         '-c', 'copy',
         '-f', 'mp4', 
         'my_output_file.mp4']
-sp.Popen(command)
-#p = sp.Popen(command, stdin=sp.PIPE)
+
+subprocess.Popen(command, stdin=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
+#p = subprocess.Popen(command, stdin=subprocess.PIPE)
 
 
+# def call_ffmpeg(cmd):
+    # with subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE) as process:
+        # process.communicate()
+    # return True
 
+# The os.setsid() is passed in the argument preexec_fn so
+# it's run after the fork() and before  exec() to run the shell.
+# pro = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, 
+                       # shell=True, preexec_fn=os.setsid) 
+# os.killpg(os.getpgid(pro.pid), signal.SIGTERM)  # Send the signal to all the process groups
+
+
+# call_ffmpeg(command)
 
 
 
