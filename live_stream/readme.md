@@ -62,6 +62,9 @@ ffmpeg -re -i /home/shoumitro/Documents/FR/video_audio/image_video_processing/sa
 # vlc for to access live video 
 network stream url: rtmp://192.168.0.105:1935/live
 
+# live video recorder
+ffmpeg -i "rtmp://192.168.0.105:1935/live/test" -c copy -f mp4 my_output_file.mp4
+
 sudo ufw allow 1935/tcp
 sudo ufw allow 8088/tcp
 
@@ -101,6 +104,9 @@ ffmpeg -re -i "/home/shoumitro/Documents/FR/video_audio/my_video.mp4" -vcodec li
 
 # vlc for to access live video 
 network stream url: rtmp://192.168.0.105:1935/live/abc123
+
+# live video recorder
+ffmpeg -i "rtmp://192.168.0.105:1935/live/test" -c copy -f mp4 my_output_file.mp4
 
 sudo ufw allow 1935/tcp
 sudo ufw allow 8088/tcp
