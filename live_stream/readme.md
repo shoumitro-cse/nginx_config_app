@@ -192,6 +192,9 @@ python recording/live_stream_recorder.py
 output:
  pid: 7376
 
+# to find pid
+/proc/7376/
+
 # Recorder cancle
 python recording/live_stream_recorder_stop.py pid_here
 
