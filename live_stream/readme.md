@@ -174,7 +174,7 @@ http://192.168.0.105:8080/players/rtmp_hls.html
 ```
 
 
-# Library for python and js
+### Library for python and js
 ```
 # good doc for ffmpeg_streaming, js, hls, dash
 # https://video.aminyazdanpanah.com/python/start?r=hls
@@ -183,16 +183,18 @@ http://192.168.0.105:8080/players/rtmp_hls.html
 ```
 
 
-## live stream video recorder
+### RTMP live stream video recorder
 ```
-# record start
+# Recorder start
 cd live_stream/
 python recording/live_stream_recorder.py
-output:
- pid = 7376
 
-# record cancle
+output:
+ pid: 7376
+
+# Recorder cancle
 python recording/live_stream_recorder_stop.py pid_here
+
 example:
 python recording/live_stream_recorder_stop.py 7376
 ``` 
