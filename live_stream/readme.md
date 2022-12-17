@@ -181,3 +181,18 @@ http://192.168.0.105:8080/players/rtmp_hls.html
 # https://github.com/Dash-Industry-Forum/dash.js
 # https://github.com/video-dev/hls.js
 ```
+
+
+## live stream video recorder
+```
+# record start
+cd live_stream/
+python recording/live_stream_recorder.py
+output:
+ pid = 7376
+
+# record cancle
+python recording/live_stream_recorder_stop.py pid_here
+example:
+python recording/live_stream_recorder_stop.py 7376
+``` 

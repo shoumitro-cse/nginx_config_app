@@ -17,6 +17,13 @@ print("Recording...")
 stream.output('./new-video.mp4')
 
 
+# pip install ffmpeg-python
+# https://json2video.com/how-to/ffmpeg-course/ffmpeg-wrappers.html#python
+import ffmpeg
+stream = ffmpeg.input('rtmp://192.168.0.105:1935/live/test')
+stream = ffmpeg.hflip(stream)
+stream = ffmpeg.output(stream, 'output.mp4', **{'c': 'copy', 'f': 'mp4'})
+ffmpeg.run(stream)
 
 
 # # 1. HLS To DASH
