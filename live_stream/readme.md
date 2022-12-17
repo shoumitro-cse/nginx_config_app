@@ -205,6 +205,9 @@ python recording/live_stream_recorder_stop.py 7376
 
 ### Recorder
 ```
+# Tutorial
+# https://github.com/arut/nginx-rtmp-module/wiki/Directives#rtmp
+
 docker exec -it live_stream_container bash
 chown nobody /mnt
 chmod 777 -R /mnt
@@ -212,6 +215,9 @@ mkdir -p /mnt/rec
 # mkdir -p /mnt/hls
 # mkdir -p /mnt/dash
 chmod 777 -R /mnt/rec
+
+root@ae8dbfcc0512:/# ls /mnt/rec
+test.audio.flv	test.flv
 
 # press this cmd to download record file to convert .mp4
 ffmpeg -y -i http://192.168.0.105:8080/test.flv -acodec libmp3lame -ar 44100 -ac 1 -vcodec libx264 test.mp4
