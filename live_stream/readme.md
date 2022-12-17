@@ -207,6 +207,7 @@ python recording/live_stream_recorder_stop.py 7376
 ```
 # Tutorial
 # https://github.com/arut/nginx-rtmp-module/wiki/Directives#rtmp
+# https://github.com/shoumitro-cse/nginx_config_app/wiki/Directives
 
 docker exec -it live_stream_container bash
 
