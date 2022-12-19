@@ -1,0 +1,4 @@
+[submodule "live_stream"]
+	path = live_video_streaming
+	url = git@github.com:shoumitro-cse/live_stream.git
+	branch = main
