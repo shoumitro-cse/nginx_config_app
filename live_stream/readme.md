@@ -228,5 +228,9 @@ root@ae8dbfcc0512:/# ls  /mnt/rec/chunked/
 test.flv
 
 # press this cmd to download record file to convert .mp4
-ffmpeg -y -i http://192.168.0.105:8080/test.flv -acodec libmp3lame -ar 44100 -ac 1 -vcodec libx264 test.mp4
+ffmpeg -y -i http://192.168.0.105:8080/rec/test.flv -acodec libmp3lame -ar 44100 -ac 1 -vcodec libx264 test.mp4
+
+
+# download url
+http://192.168.0.105:8080/rec/test.flv
 ```
